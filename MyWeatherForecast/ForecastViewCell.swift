@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class ForecastViewCell: UICollectionViewCell {
     @IBOutlet weak var dateTimeLabel: UILabel!
@@ -19,9 +20,11 @@ class ForecastViewCell: UICollectionViewCell {
         dateTimeLabel.text = item.dt_txt
         temperatureLabel.text = "Temp: \(item.main.temp)\nHumidity: \(item.main.humidity)%"
         descriptionLabel.text = "Description: \(item.weather[0].descriptionText)"
-        
-        //TODO: icon
-        //item.weather.icon
+
+        let iconUrl = URL(string: Config.baseImageUrl + item.weather[0].icon + ".png")!
+        iconImage.af_setImage(withURL: iconUrl,
+                              placeholderImage: UIImage(named: Config.defaultWeatherIcon),
+                              completion: nil)
     }
     
 }

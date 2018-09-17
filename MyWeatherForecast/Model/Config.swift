@@ -13,4 +13,6 @@ class Config {
     static let apiForecast = "/forecast"
     static let appId = "d7d6d9c6a5f8122c238b6e94aab7c1ce"
     static let cityName = "Dnipro"
+    static let baseImageUrl = "http://openweathermap.org/img/w/"
+    static let defaultWeatherIcon = "temperature.png"
 }
