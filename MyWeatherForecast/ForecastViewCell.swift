@@ -10,11 +10,11 @@ import UIKit
 import AlamofireImage
 
 class ForecastViewCell: UICollectionViewCell {
-    @IBOutlet weak var dateTimeLabel: UILabel!
-    @IBOutlet weak var temperatureLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet private weak var dateTimeLabel: UILabel!
+    @IBOutlet private weak var temperatureLabel: UILabel!
+    @IBOutlet private weak var descriptionLabel: UILabel!
 
-    @IBOutlet weak var iconImage: UIImageView!
+    @IBOutlet private weak var iconImage: UIImageView!
     
     func updateWith(forecastItem item: WeatherForecastItem) {
         dateTimeLabel.text = item.dt_txt
@@ -27,4 +27,11 @@ class ForecastViewCell: UICollectionViewCell {
                               completion: nil)
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        iconImage.af_cancelImageRequest()
+        iconImage.layer.removeAllAnimations()
+        iconImage.image = nil
+    }
 }

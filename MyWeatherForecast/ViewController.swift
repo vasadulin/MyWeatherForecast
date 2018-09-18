@@ -10,10 +10,10 @@ import UIKit
 import SwiftChart
 
 class ViewController: UIViewController {
-    @IBOutlet weak var weatherCollectionView: UICollectionView!
-    @IBOutlet weak var limitTextField: UITextField!
-    @IBOutlet weak var dayDescriptionLabel: UILabel!
-    @IBOutlet weak var temperatureChart: Chart!
+    @IBOutlet private weak var weatherCollectionView: UICollectionView!
+    @IBOutlet private weak var limitTextField: UITextField!
+    @IBOutlet private weak var dayDescriptionLabel: UILabel!
+    @IBOutlet private weak var temperatureChart: Chart!
 
     
     let limitPicker = UIPickerView()
@@ -44,7 +44,7 @@ class ViewController: UIViewController {
         
         //CollectionView set dadasource and delegate
         weatherCollectionView.dataSource = weatherController.forecastDataSource
-        weatherCollectionView.delegate = self 
+        weatherCollectionView.delegate = self
         
         //- Chart -
         chartWrapper = ChartWrapper(chart: self.temperatureChart!,
@@ -58,6 +58,7 @@ class ViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         showForecast()
     }
     

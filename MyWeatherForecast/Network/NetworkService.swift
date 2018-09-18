@@ -15,44 +15,32 @@ import RealmSwift
 
 class NetworkService {
     
-    class func fetchForecast(cityName: String, limit cnt: UInt)-> Promise<[WeatherForecastItem]> {
-        //TODO: переделать на нормальное формироввание URL
-        let requestUrl = "\(Config.baseUrl)\(Config.apiForecast)?units=metric&q=\(cityName)&cnt=\(cnt)&appid=\(Config.appId)"
+    static let shared = NetworkService()
+    private init() { }
+    
+    func fetchForecast(cityName: String, limit cnt: UInt)-> Promise<String> {
         
-        return Promise<[WeatherForecastItem]> {
-            (fullfil, reject) -> Void in
+        let requestUrl = "\(Config.baseUrl)\(Config.apiForecast)"
+        
+        let parameters: Parameters = ["units": "metric",
+                                      "q": cityName,
+                                      "cnt": cnt,
+                                      "appid": Config.appId]
+        
+        
+        return Promise<String> { (successHandler, errorHandler) -> Void in
             
-            //TODO: переделать responseString->responseJSON
-            return Alamofire.request(requestUrl).responseString(completionHandler: { (responseJSON) in
-   
-                switch(responseJSON.result) {
+            return Alamofire.request(requestUrl, parameters: parameters).responseString(completionHandler: { (responseObject) in
+            
+                switch(responseObject.result) {
                 case .success(let responseString):
                     //print("responseString: \(responseString)<<<")
-                    let forecastResponse: WeatherForecastResponse = WeatherForecastResponse(JSONString: "\(responseString)")! //TODO: переделать responseString->responseJSON
-                    //print("forecastResponse: \(forecastResponse)")
-                    //let forecastResponse: WeatherForecastResponse = WeatherForecastResponse(value: responseString)
-                    let forecastArray: [WeatherForecastItem] = Array(forecastResponse.forecastList)
-                    print("forecastArray.count: \(forecastArray.count)")
-                    fullfil(forecastArray)
                     
-                    //----- записываем данне в Realm  ----
-                    do {
-                        let realm = try Realm()
-                        try realm.write {
-                            
-                            realm.deleteAll() //удаляем все перед добавлением
-                            //добавляем новые записи в Realm
-                            for weatherItem in forecastArray {
-                                realm.add(weatherItem, update: false)//можно update: true, если у weatherItem есть primaryKey
-                            }
-                        }
-                    } catch let error as NSError {
-                        print("realm error: \(error)")
-                    }
-                    //----- конец записи в Realm  ----
+                    successHandler(responseString)
+                    
                 case .failure(let error):
                     print("alamofire error: \(error)")
-                    reject(error)
+                    errorHandler(error)
                 }
             })
             

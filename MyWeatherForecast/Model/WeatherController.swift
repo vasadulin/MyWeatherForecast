@@ -23,13 +23,13 @@ class WeatherController {
         
         print(#function)
         
-        let apiCall: Promise<[WeatherForecastItem]> = NetworkService.fetchForecast(cityName: Config.cityName, limit: limit)
+        let apiCall: Promise<String> = NetworkService.shared.fetchForecast(cityName: Config.cityName, limit: limit)
         
-        apiCall.then { //[weak self]
-            (forecastList: [WeatherForecastItem]) -> Void in
-            //TODO: использовтать forecastList
-//            self?.dataSourceArray = forecastList
-//            self?.tableView.reloadData()
+        apiCall.then { [weak self]
+            (responseString: String) -> Void in
+            
+            self?.forecastDataSource.setForecastData(responseString: responseString)
+            
             completion?()
             
         }.catch { error-> Void in
