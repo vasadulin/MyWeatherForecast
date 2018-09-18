@@ -149,7 +149,7 @@ class CloudsItem: Object, Mappable {
 }
 
 class WindItem: Object, Mappable {
-    @objc dynamic var peed: Double = 0
+    @objc dynamic var speed: Double = 0
     @objc dynamic var deg: Double = 0
     
     //MARK: Mappable
@@ -158,7 +158,7 @@ class WindItem: Object, Mappable {
     }
     
     func mapping(map: Map) {
-        peed <- map["peed"]
+        speed <- map["speed"]
         deg <- map["deg"]
     }
 

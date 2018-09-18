@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		33918E042FE41756DBF24CC4 /* Pods_MyWeatherForecast.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C56E15B04895037FB95D30C /* Pods_MyWeatherForecast.framework */; };
+		63244A17214FF4E0009DD492 /* ChartWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63244A16214FF4E0009DD492 /* ChartWrapper.swift */; };
 		635E21E4214C01FC0019E044 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635E21E3214C01FC0019E044 /* AppDelegate.swift */; };
 		635E21E6214C01FC0019E044 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635E21E5214C01FC0019E044 /* ViewController.swift */; };
 		635E21E9214C01FC0019E044 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 635E21E7214C01FC0019E044 /* Main.storyboard */; };
@@ -25,6 +26,7 @@
 /* Begin PBXFileReference section */
 		1C9B3E18128D6F5958AB0CF9 /* Pods-MyWeatherForecast.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyWeatherForecast.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyWeatherForecast/Pods-MyWeatherForecast.debug.xcconfig"; sourceTree = "<group>"; };
 		2C56E15B04895037FB95D30C /* Pods_MyWeatherForecast.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyWeatherForecast.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		63244A16214FF4E0009DD492 /* ChartWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartWrapper.swift; sourceTree = "<group>"; };
 		635E21E0214C01FC0019E044 /* MyWeatherForecast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyWeatherForecast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		635E21E3214C01FC0019E044 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		635E21E5214C01FC0019E044 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -62,6 +64,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		63244A18214FF4F3009DD492 /* Chart */ = {
+			isa = PBXGroup;
+			children = (
+				63244A16214FF4E0009DD492 /* ChartWrapper.swift */,
+			);
+			path = Chart;
+			sourceTree = "<group>";
+		};
 		635E21D7214C01FC0019E044 = {
 			isa = PBXGroup;
 			children = (
@@ -86,6 +96,7 @@
 				635E21E3214C01FC0019E044 /* AppDelegate.swift */,
 				635E21E5214C01FC0019E044 /* ViewController.swift */,
 				63695B53214EA6CC00CDFB37 /* ForecastViewCell.swift */,
+				63244A18214FF4F3009DD492 /* Chart */,
 				635E21E7214C01FC0019E044 /* Main.storyboard */,
 				63695B55214EABD400CDFB37 /* Model */,
 				63695B5C214EBACC00CDFB37 /* Network */,
@@ -233,6 +244,7 @@
 				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftChart/SwiftChart.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -242,6 +254,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftChart.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -255,6 +268,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63244A17214FF4E0009DD492 /* ChartWrapper.swift in Sources */,
 				63695B59214EB4EC00CDFB37 /* NetworkService.swift in Sources */,
 				63695B54214EA6CC00CDFB37 /* ForecastViewCell.swift in Sources */,
 				63695B5E214EBFDF00CDFB37 /* Config.swift in Sources */,

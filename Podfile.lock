@@ -19,6 +19,7 @@ PODS:
   - Realm/Headers (3.3.2)
   - RealmSwift (3.3.2):
     - Realm (= 3.3.2)
+  - SwiftChart (1.0.1)
 
 DEPENDENCIES:
   - Alamofire (~> 4.7)
@@ -26,6 +27,7 @@ DEPENDENCIES:
   - ObjectMapper (~> 3.1)
   - PromiseKit (~> 4.4)
   - RealmSwift (~> 3.3)
+  - SwiftChart (~> 1.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -35,6 +37,7 @@ SPEC REPOS:
     - PromiseKit
     - Realm
     - RealmSwift
+    - SwiftChart
 
 SPEC CHECKSUMS:
   Alamofire: 68d7d521118d49c615a8d2214d87cdf525599d30
@@ -43,7 +46,8 @@ SPEC CHECKSUMS:
   PromiseKit: 743e497a5f505a470d3bbbf4ce0663c1268af0a4
   Realm: d927fbf66df5532cfafc08afb5f7e53ded37b894
   RealmSwift: 4e903a494e05d866581d69ad6f7e7b879d446baf
+  SwiftChart: ba767a678d568a5ee22d419e146a0582865e1aff
 
-PODFILE CHECKSUM: 19789e2abf2179f3487a671f8d2e76f4a9c469f6
+PODFILE CHECKSUM: 0df798a30d45cad43003e1530e4c2f19026657f7
 
 COCOAPODS: 1.5.3

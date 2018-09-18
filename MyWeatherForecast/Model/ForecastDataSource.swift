@@ -10,7 +10,8 @@ import Foundation
 import UIKit
 import RealmSwift
 
-class ForecastDataSource: NSObject, UICollectionViewDataSource {
+class ForecastDataSource: NSObject, UICollectionViewDataSource, ChartWrapperDataSource {
+    
     
     var realm: Realm
     
@@ -39,4 +40,21 @@ class ForecastDataSource: NSObject, UICollectionViewDataSource {
         
         return cell
     }
+    
+    var forecastItems: [WeatherForecastItem] {
+        return Array(realm.objects(WeatherForecastItem.self).sorted(byKeyPath: "dt"))
+    }
+    
+    // ChartWrapperDataSource
+    // returns temperature values
+    func getPointsArray() -> [Double] {
+        let array: [WeatherForecastItem] = Array(realm.objects(WeatherForecastItem.self).sorted(byKeyPath: "dt"))
+        var result = [Double]()
+        for item in array {
+            result.append(item.main.temp)
+        }
+        
+        return result
+    }
+    
 }

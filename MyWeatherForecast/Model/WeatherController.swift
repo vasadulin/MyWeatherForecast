@@ -13,7 +13,7 @@ import RealmSwift
 
 class WeatherController {
     
-    var forecastDataSource: UICollectionViewDataSource
+    var forecastDataSource: ForecastDataSource //UICollectionViewDataSource
     
     init() {
         self.forecastDataSource = ForecastDataSource()
@@ -36,4 +36,17 @@ class WeatherController {
                 print("promice error: \(error)")
         }
     }
+    
+    func textDescriptionWeatherItem(index: Int) -> String {
+
+        let weatherItem = forecastDataSource.forecastItems[index]
+        let  result: String = """
+        Data: \(weatherItem.dt_txt)
+        Temp: \(weatherItem.main.temp),  Humidity: \(weatherItem.main.humidity)
+        Pressure: \(weatherItem.main.pressure), Wind speed: \(weatherItem.wind.speed)
+        Description: \(weatherItem.weather[0].descriptionText)
+        """
+        return result
+    }
+    
 }

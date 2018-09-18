@@ -11,5 +11,6 @@ target 'MyWeatherForecast' do
   pod 'ObjectMapper', '~> 3.1'
   pod 'PromiseKit', '~> 4.4'
   pod 'RealmSwift', '~> 3.3'
-
+  pod 'SwiftChart', '~> 1.0'
+  
 end

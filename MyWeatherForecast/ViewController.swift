@@ -7,14 +7,18 @@
 //
 
 import UIKit
+import SwiftChart
 
 class ViewController: UIViewController {
     @IBOutlet weak var weatherCollectionView: UICollectionView!
     @IBOutlet weak var limitTextField: UITextField!
+    @IBOutlet weak var dayDescriptionLabel: UILabel!
+    @IBOutlet weak var temperatureChart: Chart!
+
     
     let limitPicker = UIPickerView()
-    
     let weatherController = WeatherController()
+    var chartWrapper: ChartWrapper!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,9 +42,14 @@ class ViewController: UIViewController {
         limitTextField.inputView = limitPicker
         limitTextField.inputAccessoryView = toolBar
         
-        //set dadasource and delegate
+        //CollectionView set dadasource and delegate
         weatherCollectionView.dataSource = weatherController.forecastDataSource
-        //weatherCollectionView.delegate = self //TODO:
+        weatherCollectionView.delegate = self 
+        
+        //- Chart -
+        chartWrapper = ChartWrapper(chart: self.temperatureChart!,
+                                    dataSource: weatherController.forecastDataSource,
+                                    delegate: self)
     }
 
     override func didReceiveMemoryWarning() {
@@ -54,8 +63,14 @@ class ViewController: UIViewController {
     
     func showForecast() {
         weatherCollectionView.reloadData()
+        chartWrapper.reloadData()
     }
     
+    func showDetailForecast(index: Int) {
+        dayDescriptionLabel.text = weatherController.textDescriptionWeatherItem(index: index)
+    }
+    
+    //Hide keyboard in pickerView
     @objc func doneClick() {
         limitTextField.resignFirstResponder()
     }
@@ -67,7 +82,18 @@ class ViewController: UIViewController {
             self?.showForecast()
         }
     }
+    
+    
 }
+
+// MARK: UICollectionViewDelegate
+extension ViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        showDetailForecast(index: indexPath.row)
+    }
+}
+
 
 // MARK: UIPickerView Delegation
 extension ViewController: UIPickerViewDelegate, UIPickerViewDataSource {
@@ -87,3 +113,16 @@ extension ViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         limitTextField.text = "\(row+1)"
     }
 }
+
+// MARK: - ChartWrapperDelegate
+extension ViewController: ChartWrapperDelegate {
+    
+    func chartTapAction(_ chart: ChartWrapper, indexOfPoint: Int) {
+        showDetailForecast(index: indexOfPoint)
+        
+        //scroll collectionView
+        let indexPath = IndexPath(item: indexOfPoint, section: 0)
+        weatherCollectionView.scrollToItem(at: indexPath, at: [.centeredVertically, .centeredHorizontally], animated: true)
+    }
+}
+
