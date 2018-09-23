@@ -1,5 +1,5 @@
 //
-//  WeatherResponse.swift
+//  WeatherForecastResponse.swift
 //  MyWeatherForecast
 //
 //  Created by vasadulin on 16.09.2018.
@@ -85,7 +85,6 @@ class WeatherForecastItem: Object, Mappable {
         wind <- map["wind"]
         weather <- (map["weather"], ListTransform<WeatherViewItem>())
     }
-
 }
 
 class WeatherMainItem: Object, Mappable {
@@ -145,7 +144,6 @@ class CloudsItem: Object, Mappable {
     func mapping(map: Map) {
         all <- map["all"]
     }
-
 }
 
 class WindItem: Object, Mappable {
@@ -161,6 +159,5 @@ class WindItem: Object, Mappable {
         speed <- map["speed"]
         deg <- map["deg"]
     }
-
 }
 

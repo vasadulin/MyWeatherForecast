@@ -18,15 +18,17 @@ class NetworkService {
     static let shared = NetworkService()
     private init() { }
     
-    func fetchForecast(cityName: String, limit cnt: UInt)-> Promise<String> {
+    func fetchForecast(cityName: String,
+                       limit cnt: UInt,
+                       units: String = "metric",
+                       appId: String = Config.appId)-> Promise<String> {
         
         let requestUrl = "\(Config.baseUrl)\(Config.apiForecast)"
         
-        let parameters: Parameters = ["units": "metric",
+        let parameters: Parameters = ["units": units,
                                       "q": cityName,
                                       "cnt": cnt,
-                                      "appid": Config.appId]
-        
+                                      "appid": appId]
         
         return Promise<String> { (successHandler, errorHandler) -> Void in
             
@@ -43,7 +45,6 @@ class NetworkService {
                     errorHandler(error)
                 }
             })
-            
         }
     }
 }

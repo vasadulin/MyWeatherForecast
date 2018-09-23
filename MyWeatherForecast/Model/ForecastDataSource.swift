@@ -12,11 +12,15 @@ import RealmSwift
 
 class ForecastDataSource: NSObject, UICollectionViewDataSource, ChartWrapperDataSource {
     
+    var reuseCellIdentifier: String = "weatherCellId"
     
-    var realm: Realm
+    private var sortedForecastItems: [WeatherForecastItem]
+    
+    private var realm: Realm
     
     override init() {
         realm = try! Realm()
+        sortedForecastItems = Array(realm.objects(WeatherForecastItem.self).sorted(byKeyPath: "dt"))
         super.init()
     }
     
@@ -37,7 +41,6 @@ class ForecastDataSource: NSObject, UICollectionViewDataSource, ChartWrapperData
         set (forecastArray) {
             //----- записываем данне в Realm  ----
             do {
-                let realm = try Realm()
                 try realm.write {
                     
                     realm.deleteAll() //удаляем все перед добавлением
@@ -50,6 +53,8 @@ class ForecastDataSource: NSObject, UICollectionViewDataSource, ChartWrapperData
                 print("realm error: \(error)")
             }
             //----- конец записи в Realm  ----
+            
+            sortedForecastItems = forecastArray.sorted(by: { (a, b) -> Bool in a.dt < b.dt })
         }
         get {
             return Array(realm.objects(WeatherForecastItem.self).sorted(byKeyPath: "dt"))
@@ -62,10 +67,12 @@ class ForecastDataSource: NSObject, UICollectionViewDataSource, ChartWrapperData
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "weatherCellId", for: indexPath) as! ForecastViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseCellIdentifier, for: indexPath) as! ForecastViewCell
         
         //TODO: оптимизировать, чтобы не сортировало каждый раз
-        let items = realm.objects(WeatherForecastItem.self).sorted(byKeyPath: "dt")
+        //Правильно ли оптимизировал????
+        //let items = realm.objects(WeatherForecastItem.self).sorted(byKeyPath: "dt")  >>>>>>> let items = sortedForecastItems
+        let items = sortedForecastItems
         let item = items[indexPath.row]
         
         cell.updateWith(forecastItem: item)
